@@ -3,8 +3,8 @@ const rootRoute = "/home";
 const overViewPageDisplayName = "Overview";
 const overViewPageRoute = "/overview";
 
-const productsPageDisplayName = "Products";
-const productsPageRoute = "/products";
+const stationsPageDisplayName = "Products";
+const stationsPageRoute = "/stations";
 
 const clientsPageDisplayName = "Clients";
 const clientsPageRoute = "/clients";
@@ -21,7 +21,7 @@ class MenuItem {
 
 List<MenuItem> sideMenuItems = [
   MenuItem(name: overViewPageDisplayName, route: overViewPageRoute),
-  MenuItem(name: productsPageDisplayName, route: productsPageRoute),
+  MenuItem(name: stationsPageDisplayName, route: stationsPageRoute),
   MenuItem(name: clientsPageDisplayName, route: clientsPageRoute),
   MenuItem(name: authenticationDisplayName, route: authenticationPageRoute),
 ];

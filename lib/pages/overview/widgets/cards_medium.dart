@@ -4,8 +4,8 @@ import 'package:admin_dashboard/pages/overview/widgets/info_card.dart';
 import 'package:get/get.dart';
 
 import '../../../controllers/customers_controller.dart';
-import '../../../controllers/products_controller.dart';
-import '../../../models/product.dart';
+import '../../../controllers/stations_controller.dart';
+import '../../../models/station.dart';
 
 class OverviewCardsMediumScreen extends StatefulWidget {
   const OverviewCardsMediumScreen({super.key});
@@ -19,12 +19,12 @@ class _OverviewCardsMediumScreenState extends State<OverviewCardsMediumScreen> {
   final CustomersController customersController =
       Get.put(CustomersController());
 
-  final ProductsController productsController = Get.put(ProductsController());
+  final StationsController stationsController = Get.put(StationsController());
 
   @override
   void initState() {
     super.initState();
-    productsController.fetchProducts();
+    stationsController.fetchStations();
     customersController.fetchCustomers();
   }
 
@@ -32,19 +32,19 @@ class _OverviewCardsMediumScreenState extends State<OverviewCardsMediumScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    int calculateTotalStock(List<Product> stock) {
+    int calculateTotalStock(List<Station> stock) {
       int totalStock = 0;
-      for (int i = 0; i < productsController.products.length; i++) {
-        totalStock += productsController.products[i].stock!;
+      for (int i = 0; i < stationsController.stations.length; i++) {
+        totalStock += stationsController.stations[i].stock!;
       }
       return totalStock;
     }
 
-    int calculateTotalValue(List<Product> stock) {
+    int calculateTotalValue(List<Station> stock) {
       int totalValue = 0;
-      for (int i = 0; i < productsController.products.length; i++) {
-        totalValue += productsController.products[i].stock! *
-            productsController.products[i].price!;
+      for (int i = 0; i < stationsController.stations.length; i++) {
+        totalValue += stationsController.stations[i].stock! *
+            stationsController.stations[i].price!;
       }
       return totalValue;
     }
@@ -56,29 +56,35 @@ class _OverviewCardsMediumScreenState extends State<OverviewCardsMediumScreen> {
               children: [
                 InfoCard(
                   title: Constants.totalStock,
-                  value: calculateTotalStock(productsController.products),
+                  value: calculateTotalStock(stationsController.stations),
                   onTap: () {},
                   topColor: Colors.orange,
                 ),
-                SizedBox(width: width / 64,),
+                SizedBox(
+                  width: width / 64,
+                ),
                 InfoCard(
                   title: Constants.valueOfStock,
-                  value: calculateTotalValue(productsController.products),
+                  value: calculateTotalValue(stationsController.stations),
                   topColor: Colors.lightGreen,
                   onTap: () {},
                 ),
               ],
             ),
-            SizedBox(height: width / 64,),
+            SizedBox(
+              height: width / 64,
+            ),
             Row(
               children: [
                 InfoCard(
-                  title: Constants.productsCount,
-                  value: productsController.products.length,
+                  title: Constants.stationsCount,
+                  value: stationsController.stations.length,
                   topColor: Colors.redAccent,
                   onTap: () {},
                 ),
-                SizedBox(width: width / 64,),
+                SizedBox(
+                  width: width / 64,
+                ),
                 InfoCard(
                   title: Constants.customerCount,
                   value: customersController.customers.length,

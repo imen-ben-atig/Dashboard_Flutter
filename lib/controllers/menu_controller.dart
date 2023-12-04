@@ -23,8 +23,8 @@ class MenuController extends GetxController {
     switch (itemName) {
       case overViewPageDisplayName:
         return customIcon(Icons.trending_up, itemName);
-      case productsPageDisplayName:
-        return customIcon(Icons.shopping_bag_outlined, itemName);
+      case stationsPageDisplayName:
+        return customIcon(Icons.bus_alert_outlined, itemName);
       case clientsPageDisplayName:
         return customIcon(Icons.people_alt_outlined, itemName);
       case authenticationDisplayName:
@@ -36,6 +36,7 @@ class MenuController extends GetxController {
 
   Widget customIcon(IconData icon, String itemName) {
     if (isActive(itemName)) return Icon(icon, size: 22, color: dark);
-    return Icon(icon, size: 22, color: isHovering(itemName) ? dark : lightGray);
+    return Icon(icon,
+        size: 22, color: isHovering(itemName) ? dark : Colors.green);
   }
 }

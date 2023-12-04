@@ -1,10 +1,10 @@
 import 'package:admin_dashboard/constants/constants.dart';
 import 'package:admin_dashboard/controllers/customers_controller.dart';
-import 'package:admin_dashboard/controllers/products_controller.dart';
+import 'package:admin_dashboard/controllers/stations_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:admin_dashboard/pages/overview/widgets/info_card.dart';
 import 'package:get/get.dart';
-import '../../../models/product.dart';
+import '../../../models/station.dart';
 
 class OverviewCardsLargeScreen extends StatefulWidget {
   const OverviewCardsLargeScreen({
@@ -12,19 +12,20 @@ class OverviewCardsLargeScreen extends StatefulWidget {
   });
 
   @override
-  State<OverviewCardsLargeScreen> createState() => _OverviewCardsLargeScreenState();
+  State<OverviewCardsLargeScreen> createState() =>
+      _OverviewCardsLargeScreenState();
 }
 
 class _OverviewCardsLargeScreenState extends State<OverviewCardsLargeScreen> {
+  final CustomersController customersController =
+      Get.put(CustomersController());
 
-  final CustomersController customersController= Get.put(CustomersController());
+  final StationsController stationsController = Get.put(StationsController());
 
-  final ProductsController productsController= Get.put(ProductsController());
-  
   @override
   void initState() {
     super.initState();
-    productsController.fetchProducts();
+    stationsController.fetchStations();
     customersController.fetchCustomers();
   }
 
@@ -32,54 +33,58 @@ class _OverviewCardsLargeScreenState extends State<OverviewCardsLargeScreen> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
 
-    int calculateTotalStock(List<Product> stock){
-      int totalStock=0;
-      for(int i = 0; i < productsController.products.length; i++){
-        totalStock += productsController.products[i].stock!;
+    int calculateTotalStock(List<Station> stock) {
+      int totalStock = 0;
+      for (int i = 0; i < stationsController.stations.length; i++) {
+        totalStock += stationsController.stations[i].stock!;
       }
       return totalStock;
     }
 
-    int calculateTotalValue(List<Product> stock){
-      int totalValue=0;
-      for(int i = 0; i < productsController.products.length; i++){
-        totalValue += 
-        productsController.products[i].stock! * 
-        productsController.products[i].price!;
+    int calculateTotalValue(List<Station> stock) {
+      int totalValue = 0;
+      for (int i = 0; i < stationsController.stations.length; i++) {
+        totalValue += stationsController.stations[i].stock! *
+            stationsController.stations[i].price!;
       }
       return totalValue;
     }
 
     return Obx(() => Row(
-      children: [
-        InfoCard(
-          title: Constants.totalStock,
-          value: calculateTotalStock(productsController.products),
-          onTap: () {},
-          topColor: Colors.orange,
-        ),
-        SizedBox( width: width / 64, ),
-        InfoCard(
-          title: Constants.valueOfStock,
-          value: calculateTotalValue(productsController.products),
-          topColor: Colors.lightGreen,
-          onTap: () {},
-        ),
-        SizedBox( width: width / 64, ),
-        InfoCard(
-          title: Constants.productsCount,
-          value: productsController.products.length,
-          topColor: Colors.redAccent,
-          onTap: () {},
-        ),
-        SizedBox( width: width / 64, ),
-        InfoCard(
-          title: Constants.customerCount,
-          value: customersController.customers.length,
-          onTap: () {},
-        ),
-      ],
-    )
-    );
+          children: [
+            InfoCard(
+              title: Constants.totalStock,
+              value: calculateTotalStock(stationsController.stations),
+              onTap: () {},
+              topColor: Colors.orange,
+            ),
+            SizedBox(
+              width: width / 64,
+            ),
+            InfoCard(
+              title: Constants.valueOfStock,
+              value: calculateTotalValue(stationsController.stations),
+              topColor: Colors.lightGreen,
+              onTap: () {},
+            ),
+            SizedBox(
+              width: width / 64,
+            ),
+            InfoCard(
+              title: Constants.stationsCount,
+              value: stationsController.stations.length,
+              topColor: Colors.redAccent,
+              onTap: () {},
+            ),
+            SizedBox(
+              width: width / 64,
+            ),
+            InfoCard(
+              title: Constants.customerCount,
+              value: customersController.customers.length,
+              onTap: () {},
+            ),
+          ],
+        ));
   }
 }

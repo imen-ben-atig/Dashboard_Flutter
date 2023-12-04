@@ -1,16 +1,16 @@
-class Products {
-  List<Products>? products;
+class Stations {
+  List<Stations>? stations;
   int? total;
   int? skip;
   int? limit;
 
-  Products({this.products, this.total, this.skip, this.limit});
+  Stations({this.stations, this.total, this.skip, this.limit});
 
-  Products.fromJson(Map<String, dynamic> json) {
-    if (json['products'] != null) {
-      products = <Products>[];
-      json['products'].forEach((v) {
-        products!.add(Products.fromJson(v));
+  Stations.fromJson(Map<String, dynamic> json) {
+    if (json['stations'] != null) {
+      stations = <Stations>[];
+      json['stations'].forEach((v) {
+        stations!.add(Stations.fromJson(v));
       });
     }
     total = json['total'];
@@ -20,8 +20,8 @@ class Products {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = <String, dynamic>{};
-    if (products != null) {
-      data['products'] = products!.map((v) => v.toJson()).toList();
+    if (stations != null) {
+      data['stations'] = stations!.map((v) => v.toJson()).toList();
     }
     data['total'] = total;
     data['skip'] = skip;
@@ -30,7 +30,7 @@ class Products {
   }
 }
 
-class Product {
+class Station {
   int? id;
   String? title;
   String? description;
@@ -43,7 +43,7 @@ class Product {
   String? thumbnail;
   List<String>? images;
 
-  Product(
+  Station(
       {this.id,
       this.title,
       this.description,
@@ -56,7 +56,7 @@ class Product {
       this.thumbnail,
       this.images});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  Station.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     description = json['description'];

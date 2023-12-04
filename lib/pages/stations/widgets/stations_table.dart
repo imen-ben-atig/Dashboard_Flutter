@@ -1,23 +1,23 @@
 // ignore_for_file: avoid_print
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import '../../../controllers/products_controller.dart';
+import '../../../controllers/stations_controller.dart';
 import '../../../widgets/custom_text.dart';
 
-class ProductsTable extends StatefulWidget {
-  const ProductsTable({super.key});
+class StationsTable extends StatefulWidget {
+  const StationsTable({super.key});
 
   @override
-  State<ProductsTable> createState() => _ProductsTableState();
+  State<StationsTable> createState() => _StationsTableState();
 }
 
-class _ProductsTableState extends State<ProductsTable> {
-  final ProductsController productsController = Get.put(ProductsController());
+class _StationsTableState extends State<StationsTable> {
+  final StationsController stationsController = Get.put(StationsController());
 
   @override
   void initState() {
     super.initState();
-    productsController.fetchProducts();
+    stationsController.fetchStations();
   }
 
   @override
@@ -25,7 +25,7 @@ class _ProductsTableState extends State<ProductsTable> {
     var columns = const [
       DataColumn(label: Text('Brand')),
       DataColumn(label: Text('Category')),
-      DataColumn(label: Text('Product')),
+      DataColumn(label: Text('Station')),
       DataColumn(label: Text('Price')),
       DataColumn(label: Text('Rating')),
       DataColumn(label: Text('Stock')),
@@ -36,12 +36,12 @@ class _ProductsTableState extends State<ProductsTable> {
 
     return Obx(() => Padding(
           padding: const EdgeInsets.all(16),
-          child: productsController.products.isEmpty
+          child: stationsController.stations.isEmpty
               ? const Center(child: CircularProgressIndicator())
               : PaginatedDataTable(
                   columns: columns,
                   source: data,
-                  //header: const Text('All Products'),
+                  //header: const Text('All Stations'),
                   columnSpacing: 50,
                   horizontalMargin: 30,
                   rowsPerPage: 10,
@@ -51,19 +51,19 @@ class _ProductsTableState extends State<ProductsTable> {
 }
 
 class MyData extends DataTableSource {
-  final ProductsController productsController = Get.put(ProductsController());
+  final StationsController stationsController = Get.put(StationsController());
 
   List<Map<String, dynamic>> data = [];
 
   MyData() {
-    for (var i = 0; i < productsController.products.length; i++) {
+    for (var i = 0; i < stationsController.stations.length; i++) {
       data.add({
-        'brand': productsController.products[i].brand,
-        'category': productsController.products[i].category,
-        'product': productsController.products[i].title,
-        'price': productsController.products[i].price.toString(),
-        'rating': productsController.products[i].rating.toString(),
-        'stock': productsController.products[i].stock.toString(),
+        'brand': stationsController.stations[i].brand,
+        'category': stationsController.stations[i].category,
+        'station': stationsController.stations[i].title,
+        'price': stationsController.stations[i].price.toString(),
+        'rating': stationsController.stations[i].rating.toString(),
+        'stock': stationsController.stations[i].stock.toString(),
         'actions': {
           'edit': () {
             print('Edit');
@@ -81,7 +81,7 @@ class MyData extends DataTableSource {
     return DataRow(cells: [
       DataCell(CustomText(text: data[index]['brand'])),
       DataCell(CustomText(text: data[index]['category'])),
-      DataCell(CustomText(text: data[index]['product'])),
+      DataCell(CustomText(text: data[index]['station'])),
       DataCell(CustomText(text: data[index]['price'])),
       DataCell(Row(
         children: [

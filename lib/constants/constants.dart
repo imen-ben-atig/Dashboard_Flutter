@@ -1,12 +1,12 @@
-class Constants{
+class Constants {
+  static const String customersUrl = "assets/customers.json";
+  static const String stationsUrl = "assets/stations.json";
+  static const String localHost =
+      "https://jwt-auth-api-production-2459.up.railway.app";
 
-  static const String customersUrl = "https://jsonplaceholder.typicode.com/users";
-  static const String productsUrl = "https://dummyjson.com/products";
-  static const String localHost = "https://jwt-auth-api-production-2459.up.railway.app";
-
-  static const String totalStock = "Total stock of products:";
+  static const String totalStock = " All Stations:";
   static const String valueOfStock = "Value of stock:";
-  static const String productsCount = "Products count:";
+  static const String stationsCount = "Stations count:";
   static const String customerCount = "Customer count:";
 
   static const String loginOk = "User logged in successfully!";
@@ -16,5 +16,4 @@ class Constants{
   static const String logoutError = "Error during logout!";
 
   static const String cookieName = "jwt";
-
 }
